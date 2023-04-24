@@ -11,7 +11,7 @@
 <ul id="patients">
   <% @doctor.doctor_patients.each do |dp| %>
     <div id= "patient-<%= dp.patient.id %>">
-      <li><%= dp.patient.name %>
+      <li><%= dp.patient_name %>
       <%= button_to "Remove from caseload", doctor_doctor_patient_path(@doctor.id, dp.id), method: :delete  %></li>
     </div>
   <% end %>
