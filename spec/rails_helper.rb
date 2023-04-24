@@ -1,7 +1,9 @@
 def test_data
   @hospital_1 = Hospital.create!(name: "Seattle Grace")
+  @hospital_2 = Hospital.create!(name: "Grey Sloan Memorial Hospital")
   @doctor_1 = @hospital_1.doctors.create(name: "McDreamy", specialty: "dreamin", university: "Doctors R Us")
   @doctor_2 = @hospital_1.doctors.create(name: "McSteamy", specialty: "steamin", university: "Doctors Express")
+  @doctor_3 = @hospital_1.doctors.create(name: "Meredith Grey", specialty: "General Surgery", university: "Harvard University")
   @patient_3 = Patient.create!(name: "Granny", age: 102)
   @patient_4 = Patient.create!(name: "Stacy", age: 29)
   @patient_1 = Patient.create!(name: "Steve", age: 32)
@@ -12,6 +14,7 @@ def test_data
   @mcdreamy_stacy = DoctorPatient.create(doctor_id: @doctor_1.id, patient_id: @patient_4.id)
   @mcsteamy_granny = DoctorPatient.create(doctor_id: @doctor_2.id, patient_id: @patient_3.id)
   @mcsteamy_stacy = DoctorPatient.create(doctor_id: @doctor_2.id, patient_id: @patient_4.id)
+  @grey_bobby = DoctorPatient.create(doctor_id: @doctor_3.id, patient_id: @patient_5.id)
 end
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
