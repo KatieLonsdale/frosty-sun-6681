@@ -41,11 +41,29 @@ RSpec.describe "Doctors show page" do
         end
       end
       expect(page).to have_no_content(@patient_3.name)
+      expect(page).to have_no_content(@patient_5.name)
+
+      visit doctor_path(@doctor_2.id)
+      @doctor_2.patients.each do |patient|
+        within("#patients") do
+          expect(page).to have_content(patient.name)
+        end
+      end
+      expect(page).to have_no_content(@patient_1.name)
+      expect(page).to have_no_content(@patient_2.name)
+      expect(page).to have_no_content(@patient_5.name)
     end
 
     it "has a button next to each patient to remove patient from doctor's caseload" do
       visit doctor_path(@doctor_1.id)
       @doctor_1.patients.each do |patient|
+        within("#patient-#{patient.id}") do
+          expect(page).to have_button("Remove from caseload")
+        end
+      end
+
+      visit doctor_path(@doctor_2.id)
+      @doctor_2.patients.each do |patient|
         within("#patient-#{patient.id}") do
           expect(page).to have_button("Remove from caseload")
         end
