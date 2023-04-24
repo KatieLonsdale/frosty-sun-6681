@@ -9,7 +9,10 @@
 </div>
 <br>
 <ul id="patients">
-  <% @doctor.patients.each do |patient| %>
-    <li><%= patient.name %></li>
+  <% @doctor.doctor_patients.each do |dp| %>
+    <div id= "patient-<%= dp.patient.id %>">
+      <li><%= dp.patient.name %>
+      <%= button_to "Remove from caseload", doctor_doctor_patient_path(@doctor.id, dp.id), method: :delete  %></li>
+    </div>
   <% end %>
 </ul>
