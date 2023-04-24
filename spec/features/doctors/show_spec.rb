@@ -35,13 +35,45 @@ RSpec.describe "Doctors show page" do
 
     it "shows names of all of their patients" do
       visit doctor_path(@doctor_1.id)
-      save_and_open_page
       @doctor_1.patients.each do |patient|
         within("#patients") do
           expect(page).to have_content(patient.name)
         end
       end
       expect(page).to have_no_content(@patient_3.name)
+    end
+
+    it "has a button next to each patient to remove patient from doctor's caseload" do
+      visit doctor_path(@doctor_1.id)
+      @doctor_1.patients.each do |patient|
+        within("#patient-#{patient.id}") do
+          expect(page).to have_button("Remove from caseload")
+        end
+      end
+    end
+    it "takes me back to show page when I click the button and the patient is no longer listed" do
+      visit doctor_path(@doctor_1.id)
+      within("#patient-#{@patient_4.id}") do
+        expect(page).to have_content(@patient_4.name)
+        click_button("Remove from caseload")
+      end
+
+      expect(current_path).to eq(doctor_path(@doctor_1.id))
+
+      within("#patients") do
+        expect(page).to have_no_content(@patient_4.name)
+      end
+    end
+    it "does not affect a different doctor with the same patient" do
+      visit doctor_path(@doctor_1.id)
+      within("#patient-#{@patient_4.id}") do
+        click_button("Remove from caseload")
+      end
+
+      visit doctor_path(@doctor_2.id)
+      within("#patient-#{@patient_4.id}") do
+        expect(page).to have_content(@patient_4.name)
+      end
     end
   end
 end
