@@ -1,7 +1,7 @@
 def test_data
   @hospital_1 = Hospital.create!(name: "Seattle Grace")
   @doctor_1 = @hospital_1.doctors.create(name: "McDreamy", specialty: "dreamin", university: "Doctors R Us")
-  @doctor_2 = @hospital_1.doctors.create(name: "McSteamy", specialty: "setamin", university: "Doctors Express")
+  @doctor_2 = @hospital_1.doctors.create(name: "McSteamy", specialty: "steamin", university: "Doctors Express")
   @patient_3 = Patient.create!(name: "Granny", age: 102)
   @patient_4 = Patient.create!(name: "Stacy", age: 29)
   @patient_1 = Patient.create!(name: "Steve", age: 32)
